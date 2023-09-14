@@ -26,7 +26,7 @@
         const Json = await resp.json();
         const d = Json.data;
 
-
+        //fetches the id and returns name, scientific name, toxicity, pic
         const idArray = [];
         Object.keys(d).forEach(key => {
             idArray.push(d[key].id);
@@ -54,13 +54,6 @@
             document.body.appendChild(plantContainer);
             document.body.appendChild(image);
         }
-
-        //use a loop to fetch all ids using GET
-
-
-        //print all id's names + poisonous
-
-
     };
 
 </script>

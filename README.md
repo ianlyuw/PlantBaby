@@ -1,1 +1,2 @@
 # PlantBaby
+This project utilizes Perenual.com as an API source for the data. When using the search bar, the results will return any plant that contains the search query within either the scientific name or common name. Furthermore, a yes or no will be given to each plant on whether they're toxic to pets.
