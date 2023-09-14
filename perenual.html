@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<title>Plant Test</title>
+<h1>Poisonous Plant Tester</h1>
+<input type="text" id="userInput" placeholder="Enter Plant Name">
+<button onclick="apiUrl()">Get Data</button>
+<div id="output"></div>
+<script>
+    const key = "sk-OM1k64b37229858e41522";
+
+
+
+    const apiUrl = async () => {
+        //get string/ query of keywords for species
+        const user = document.getElementById("userInput").value;
+        console.log(user);
+        //fetch query data through "q" parameter
+        const resp = await fetch("https://perenual.com/api/species-list?key=sk-OM1k64b37229858e41522&q=" + user);
+
+        //return all species that contains keyword using "common_name" and identifying their id
+        const Json = await resp.json();
+        const d = Json.data;
+
+
+        const idArray = [];
+        Object.keys(d).forEach(key => {
+            idArray.push(d[key].id);
+            console.log(Object.keys(d));
+        });
+        console.log(idArray);
+        for(const id of idArray){
+            const respTwo = await fetch(`https://perenual.com/api/species/details/${id}?key=sk-OM1k64b37229858e41522`);
+            const jsonTwo = await respTwo.json();
+            const name = jsonTwo.common_name;
+            const sciName = jsonTwo. scientific_name;
+            const isPoisonousToPets = jsonTwo.poisonous_to_pets;
+            const pic = jsonTwo.thumbnail;
+            const plantContainer = document.createElement("div");
+            const image = document.createElement("img");
+            image.src = pic;
+            // Use the boolean value as needed
+            document.write("<br><br>Name: " + name);
+            document.write("<br>Scientific name: " + sciName);
+            let truth = "No";
+            if(Boolean(isPoisonousToPets)){
+                truth = "Yes";
+            }
+            document.write("<br>Is this plant poisonous to pets? " + truth);
+            document.body.appendChild(plantContainer);
+            document.body.appendChild(image);
+        }
+
+        //use a loop to fetch all ids using GET
+
+
+        //print all id's names + poisonous
+
+
+    };
+
+</script>
+
+</body>
+</body>
+</html>
